@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>chartdownloader.ico</file>
+        <file>qml/Download.qml</file>
+        <file>qml/DownloadForm.ui.qml</file>
+        <file>qml/main.qml</file>
+        <file>qml/PhotoViewer.qml</file>
+        <file>qml/images/checkmark.png</file>
+        <file>qml/images/error.png</file>        
+        <file>qtquickcontrols2.conf</file>
+    </qresource>
+</RCC>
