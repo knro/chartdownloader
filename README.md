@@ -4,45 +4,45 @@
 
 Chart Downloader is a very simple downloader for airport navigational charts. Currently only USA charts from FAA are supported. The following charts can be downloaded:
 
-## Airport Diagram.
-## Minimum: Takeoff & Alternate Minimums.
-## Standard Instrument Departure (SID) charts.
-## Standard Terminal Arrival (STARs) charts.
-## Approach (ILS/GPS/RNAV..etc) charts.
+* Airport Diagram.
+* Minimum: Takeoff & Alternate Minimums.
+* Standard Instrument Departure (SID) charts.
+* Standard Terminal Arrival (STARs) charts.
+* Approach (ILS/GPS/RNAV..etc) charts.
 
 The charts are downloaded as PDF and stored with a folder specified by the user.
 
 # Aerobask Conversion
 
-My primary motivation for developing the chart downloader is to be able to use charts in Aerobask airplanes in XPlane-11 under Linux. Using poppler-qt5 library, all the charts can be converted to PNG files for use within the simulator. The download folder should be the *charts* folder under *Custom Data* directory in the XPlane-11 directory. 
+My primary motivation for developing the chart downloader is to be able to use charts in [Aerobask](http://aerobask.com/) planes in [XPlane 11](http://www.x-plane.com/) under Linux. Using poppler-qt5 library, all the charts can be converted to PNG files for use within the simulator. The download folder should be the *charts* folder under *Custom Data* directory in the XPlane 11 directory. 
 
-# Installation
+# Requirements
 
-No binary releases yet since it depends on Qt5. So you need to compile the application under your platform. You need the following:
+No binary releases yet since it depends on Qt 5.8+. So you need to compile the application under your platform. You need the following:
 
-## Git
+* Git
 
 Only required if you want to clone the repository. Otherwise, simply download the zip and uncompress it.
 
-## Qt5
+* Qt5
 
-Qt 5.8 or higher is required.
+Qt 5.8 or higher is required. Please [download Qt 5.8+](https://www.qt.io/download-open-source/#section-2) from Qt and install it (e.g. under /opt)
 
-## Poppler-qt5
+* Poppler-qt5
 
 Required to convert PDFs to PNGs.
 
 
-Under Ubuntu, you can install the dependencies:
+Assuming you already downloaded and installed Qt 5.8+, you can proceed to install the other dependencies:
 
 ```
-$ sudo apt-get -y install git qt5-default libqt5widgets5 libqt5network5 libpoppler-qt5-dev qtquickcontrols2-5-dev qml-module-qtquick-controls2 qml-module-qtquick-templates2 qml-module-qt-labs-folderlistmodel qml-module-qt-labs-settings
+$ sudo apt-get -y install git libpoppler-qt5-dev
 ```
 
 Now, clone this repo:
 
 ```
-git clone http://www.github.org/knro/chartdownloader.git
+git clone https://github.com/knro/chartdownloader
 
 ```
 
@@ -61,7 +61,7 @@ Please note that if you have Qt 5.8 installed separately on your PC (e.g. under 
 make
 ```
 
-Now you should chart **chart-download** executable in the build directory, to run the application, simply type *./chart-downloader*
+Now you should chart **chart-download** executable in the build directory, to run the application, simply type **./chart-downloader**
 
 # Usage
 
