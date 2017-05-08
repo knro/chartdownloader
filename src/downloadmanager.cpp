@@ -271,17 +271,17 @@ void DownloadManager::convertNextChart()
     if (conversionQuality == QUALITY_HIGH)
     {
         dpi = 300;
-        quality = 95;
+        quality = 15;
     }
     else if (conversionQuality == QUALITY_MEDIUM)
     {
         dpi = 200;
-        quality = 85;
+        quality = 10;
     }
     else
     {
         dpi = 100;
-        quality = 75;
+        quality = 5;
     }
 
     // Generate a QImage of the rendered page
