@@ -79,7 +79,7 @@ DownloadForm
             popupLabel.text = downloadProgressStatus
             popup.open()
 
-            var airportFolder = "file://" + downloadFolder + "/" + airportID.text;
+            var airportFolder = utils.convertPathToURL(downloadFolder+"/"+airportID.text);
             photoViewerPage.currentFolder = airportFolder
         }
 

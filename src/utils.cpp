@@ -22,4 +22,9 @@ QString Utils::convertUrlToNativeFilePath(const QUrl& urlStylePath) const
     return QDir::toNativeSeparators(urlStylePath.toLocalFile());
 }
 
+QUrl Utils::convertPathToURL(const QString& path) const
+{
+    return QUrl::fromLocalFile(path);
+}
+
 

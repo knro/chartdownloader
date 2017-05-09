@@ -53,3 +53,9 @@ HEADERS += src\utils.h \
 
 unix: CONFIG += link_pkgconfig
 unix: PKGCONFIG += poppler-qt5
+
+win32:CONFIG(release, debug|release): LIBS += -LR:/lib/ -lpoppler-qt5
+else:win32:CONFIG(debug, debug|release): LIBS += -LZ:/lib/ -lpoppler-qt5
+
+win32:CONFIG(release, debug|release): INCLUDEPATH += R:/include
+else:win32:CONFIG(debug, debug|release): Z:/include

@@ -118,7 +118,7 @@ bool FileDownloader::setDownloadedFileURL(const QUrl &DownloadedFile)
     if (m_DownloadedFileURL.isEmpty() == false)
     {
         m_DownloadedFile.setFileName(m_DownloadedFileURL.toLocalFile());
-        bool rc = m_DownloadedFile.open( QIODevice::WriteOnly|QIODevice::Truncate|QIODevice::Text );
+        bool rc = m_DownloadedFile.open( QIODevice::WriteOnly);
 
         if (rc == false)
             qWarning() << m_DownloadedFile.errorString();

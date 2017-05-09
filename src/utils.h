@@ -21,7 +21,8 @@ Q_OBJECT
 public:    
     explicit Utils(QObject *parent=nullptr);
 
-    Q_INVOKABLE QString convertUrlToNativeFilePath(const QUrl& urlStylePath) const;        
+    Q_INVOKABLE QString convertUrlToNativeFilePath(const QUrl& urlStylePath) const;
+    Q_INVOKABLE QUrl convertPathToURL(const QString &path) const;
 };
 
 #endif // UTILS_H

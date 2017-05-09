@@ -25,8 +25,9 @@ QPixmap IconProvider::requestPixmap(const QString &id, QSize *size, const QSize 
     {
         // Memory footprint?
         QPixmap preview;
-        preview.load(id);
-        if (size) *size = QSize(preview.width(), preview.height());
+        bool rc = preview.load(id);
+        if (rc && size)
+            *size = QSize(preview.width(), preview.height());
         return preview;
     }
 }

@@ -61,9 +61,6 @@ bool FAAService::startDownload(const QString &airportID, bool getAirport, bool g
 
 void FAAService::processDownloadSucess()
 {
-    qDebug() << QTime::currentTime().toString("HH:mm:ss.zzz") << "processDownloadSucess, will delete job later...";
-    //downloadJob->deleteLater();
-
     if (state == PARSE_HTML)
     {
         QXmlSimpleReader xmlReader;
