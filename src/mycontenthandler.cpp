@@ -12,9 +12,14 @@
 
 #include "mycontenthandler.h"
 
-MyContentHandler::MyContentHandler(const QString &airportID)
+MyContentHandler::MyContentHandler(const QString &airportID, bool getAirport, bool getMinimums, bool getSID, bool getSTAR, bool getApproach)
 {
     this->airportID = airportID;
+    this->getAirport=getAirport;
+    this->getMinimums=getMinimums;
+    this->getSID=getSID;
+    this->getSTAR=getSTAR;
+    this->getApproach=getApproach;
 }
 
 bool MyContentHandler::startElement(const QString &namespaceURI, const QString &localName, const QString &qName, const QXmlAttributes &atts)
@@ -49,19 +54,19 @@ bool MyContentHandler::characters(const QString &ch)
 
     if (currentTag == ChartInfo::UNKNOWN)
     {
-        if (pcdata == "APD")
+        if (pcdata == "APD" && getAirport)
             currentTag = ChartInfo::AIRPORT;
-        else if (pcdata == "MIN")
+        else if (pcdata == "MIN" && getMinimums)
             currentTag = ChartInfo::MINIMUMS;
-        else if (pcdata == "DP")
+        else if (pcdata == "DP" && getSID)
             currentTag = ChartInfo::SID;
-        else if (pcdata == "STAR")
+        else if (pcdata == "STAR" && getSTAR)
             currentTag = ChartInfo::STAR;
-        else if (pcdata == "IAP")
+        else if (pcdata == "IAP" && getApproach)
             currentTag = ChartInfo::IAP;
 
         return true;
-    }
+    }        
 
     ChartInfo *oneChart = new ChartInfo(airportID);
     oneChart->type = currentTag;

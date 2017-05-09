@@ -58,7 +58,7 @@ void FileDownloader::post(const QUrl &fileUrl, QHttpMultiPart * parts)
 
 void FileDownloader::cancel()
 {
-    if (m_Reply->isRunning())
+    if (m_Reply && m_Reply->isRunning())
     {
         isCancelled = true;
         m_Reply->abort();
@@ -89,9 +89,7 @@ void FileDownloader::dataFinished(QNetworkReply * pReply)
 }
 
 void FileDownloader::slotError()
-{
-    m_Reply->deleteLater();
-
+{    
     if (isCancelled)
     {
         // Remove partially downloaded file, should we download to %tmp first?
@@ -104,6 +102,8 @@ void FileDownloader::slotError()
     }
     else
         emit error(m_Reply->errorString());
+
+    m_Reply->deleteLater();
 }
 
 QUrl FileDownloader::getDownloadedFileURL() const

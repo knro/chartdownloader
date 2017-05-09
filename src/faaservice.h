@@ -28,7 +28,7 @@ public:
     typedef enum { IDLE, PARSE_HTML, DOWNLOAD_DATA } DownloadState;
 
     explicit FAAService(QObject *parent = 0);
-    ~FAAService() {}
+    ~FAAService();
 
     virtual bool canDownload(const QString &airportID) { return airportID.startsWith("K", Qt::CaseInsensitive); }
 

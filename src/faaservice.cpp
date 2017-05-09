@@ -21,6 +21,11 @@ FAAService::FAAService(QObject *parent) : ServiceProvider(parent)
 
 }
 
+FAAService::~FAAService()
+{
+    delete (downloadJob);
+}
+
 bool FAAService::startDownload(const QString &airportID, bool getAirport, bool getMinimums, bool getSID, bool getSTAR, bool getApproach)
 {
     m_airportID  = airportID;
@@ -34,6 +39,9 @@ bool FAAService::startDownload(const QString &airportID, bool getAirport, bool g
     // Get current cycle from 1-week in the future
     QString cycle       = QDate::currentDate().addDays(7).toString("yyMM");
     QUrl    url         = QUrl(QString("https://www.faa.gov/air_traffic/flight_info/aeronav/digital_products/dtpp/search/results/?cycle=%1&ident=%2").arg(cycle,airportID));
+
+    if (downloadJob)
+        delete (downloadJob);
 
     downloadJob = new FileDownloader();
 
@@ -53,7 +61,8 @@ bool FAAService::startDownload(const QString &airportID, bool getAirport, bool g
 
 void FAAService::processDownloadSucess()
 {
-    downloadJob->deleteLater();
+    qDebug() << QTime::currentTime().toString("HH:mm:ss.zzz") << "processDownloadSucess, will delete job later...";
+    //downloadJob->deleteLater();
 
     if (state == PARSE_HTML)
     {
@@ -74,7 +83,7 @@ void FAAService::processDownloadSucess()
 
         source->setData(data);
 
-        MyContentHandler *handler = new MyContentHandler(m_airportID);
+        MyContentHandler *handler = new MyContentHandler(m_airportID, getAirport, getMin, getSID, getStar, getApproach);
         xmlReader.setContentHandler(handler);
         xmlReader.setErrorHandler(handler);
 
@@ -92,8 +101,6 @@ void FAAService::processDownloadSucess()
         delete (handler);
         delete (source);
 
-        qDebug() << "Finished parsing!!";
-
         emit parseComplete();
 
     }
@@ -108,5 +115,7 @@ void FAAService::processDownloadError(const QString &errorString)
 
 void FAAService::stopDownload()
 {
+    qDebug() << QTime::currentTime().toString("HH:mm:ss.zzz") << "FAA service cancel download job";
+    downloadJob->disconnect();
     downloadJob->cancel();
 }

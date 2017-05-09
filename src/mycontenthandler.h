@@ -18,7 +18,7 @@ class MyContentHandler : public QXmlDefaultHandler
 {
 public:    
 
-    MyContentHandler(const QString &airportID);
+    MyContentHandler(const QString &airportID, bool getAirport, bool getMinimums, bool getSID, bool getSTAR, bool getApproach);
 
     bool startElement(const QString &namespaceURI, const QString &localName, const QString &qName, const QXmlAttributes &atts);
 
@@ -34,6 +34,8 @@ public:
 
     QString currentURL;
     QString airportID;
+
+    bool getAirport=false, getMinimums=false, getSID=false, getSTAR=false, getApproach=false;
 };
 
 #endif // MYCONTENTHANDLER_H

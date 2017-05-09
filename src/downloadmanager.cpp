@@ -50,6 +50,8 @@ bool DownloadManager::startDownload(const QString &airportID, bool getAirport, b
     this->convertToAerosoft  = convertToAerosoft;
     this->conversionQuality  = conversionQuality;
 
+    totalCharts = downloadedCharts = 0;
+
     foreach (ServiceProvider *service, downloadServices)
     {
         if (service->canDownload(airportID))
@@ -66,9 +68,15 @@ bool DownloadManager::startDownload(const QString &airportID, bool getAirport, b
 }
 
 void DownloadManager::stopDownload()
-{
-    if (m_currentService)
+{    
+    if (m_currentService && totalCharts == 0)
         m_currentService->stopDownload();
+    else
+    {
+        downloadJob->disconnect();
+        downloadJob->cancel();
+        downloadJob->deleteLater();
+    }
 }
 
 void DownloadManager::processParseComplete()
@@ -130,7 +138,7 @@ void DownloadManager::processParseComplete()
 }
 
 void DownloadManager::downloadNextChart()
-{   
+{
     if (charts.isEmpty() || downloadedCharts == totalCharts)
     {
         if (convertToAerosoft)
@@ -185,7 +193,7 @@ void DownloadManager::processDownloadSucess()
 
 void DownloadManager::processDownloadError(const QString &errorString)
 {
-    qCritical() << "Download Error:" << errorString;
+    qCritical() << QTime::currentTime().toString("HH:mm:ss.zzz") << "Download Error:" << errorString;
     downloadJob->deleteLater();
 
     m_downloadProgressStatus = errorString;

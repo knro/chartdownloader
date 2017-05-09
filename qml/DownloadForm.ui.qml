@@ -121,7 +121,7 @@ Item {
 
             CheckBox {
                 id: airportCheck
-                text: qsTr("AIRPORT")
+                text: qsTr("Airport")
                 checked: true
             }
 
