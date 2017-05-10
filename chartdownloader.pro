@@ -51,11 +51,16 @@ HEADERS += src\utils.h \
            src\chartinfo.h \
            src\iconprovider.h
 
-unix: CONFIG += link_pkgconfig
-unix: PKGCONFIG += poppler-qt5
+linux: CONFIG += link_pkgconfig
+linux: PKGCONFIG += poppler-qt5
 
 win32:CONFIG(release, debug|release): LIBS += -LR:/lib/ -lpoppler-qt5
 else:win32:CONFIG(debug, debug|release): LIBS += -LZ:/lib/ -lpoppler-qt5
 
 win32:CONFIG(release, debug|release): INCLUDEPATH += R:/include
 else:win32:CONFIG(debug, debug|release): Z:/include
+
+macx: LIBS += -L/usr/local/lib -lpoppler-qt5
+macx: INCLUDEPATH += /usr/local/include/poppler/qt5
+ICON = chartdownloader.icns
+QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.3
