@@ -1,0 +1,7 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: chartdownloader
+Source: https://github.com/knro/chartdownloader
+
+Files: *
+Copyright: 2017, Jasem Mutlaq <mutlaqja@ikarustech.com>
+License: GPL-2+

@@ -1,0 +1,32 @@
+Source: chartdownloader
+Section: utilities
+Priority: optional
+Maintainer: Jasem Mutlaq <mutlaqja@ikarustech.com>
+Build-Depends: debhelper (>= 9.0.0),
+               pkg-config,
+               pkg-kde-tools (>= 0.15.15ubuntu1~),               
+               qtbase5-dev,
+               qtdeclarative5-dev,               
+               qtquickcontrols2-5-dev,
+               libpoppler-qt5-dev               
+Standards-Version: 3.9.3
+Homepage: http://edu.kde.org/
+
+Package: chartdownloader
+Architecture: any
+Section: utilities
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Simple Chart Downloader
+ Download airport aeronautical charts including airport diagrams,
+ minimums, Standard Instrument Departure (SID), Standard Terminal Arrival (STAR), and
+ Instrument Approach (IAP) charts in PDF format.
+ Supports conversion to PNG for use in Aerobask airplanes in XPlane. 
+
+Package: chartdownloader-dbg
+Architecture: any
+Section: debug
+Priority: extra
+Depends: chartdownloader (= ${binary:Version}), ${misc:Depends}
+Description: debug information for chartdownloader
+ This package contains debugging files used to investigate problems with the
+ chartdownloader.
