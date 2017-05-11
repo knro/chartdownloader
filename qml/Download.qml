@@ -140,7 +140,7 @@ DownloadForm
         downloadManager.downloadFolder = downloadFolder.text
         if (state == "idle")
         {
-            var isSuccess = downloadManager.startDownload(airportID.text, isAirportChecked, isMinimumChecked, isSIDChecked, isStarChecked, isApproachChecked, isAerosoftChecked, qualityComboCurrentIndex);
+            var isSuccess = downloadManager.startDownload(airportID.text, isAirportChecked, isMinimumChecked, isSIDChecked, isStarChecked, isApproachChecked, isAerobaskChecked, qualityComboCurrentIndex);
             if (isSuccess)
             {
                 state = "running"

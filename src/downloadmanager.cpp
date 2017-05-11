@@ -39,7 +39,7 @@ void DownloadManager::setDownloadFolder(const QString &downloadFolder)
     m_downloadFolder = downloadFolder;
 }
 
-bool DownloadManager::startDownload(const QString &airportID, bool getAirport, bool getMinimums, bool getSID, bool getSTAR, bool getApproach, bool convertToAerosoft, int conversionQuality)
+bool DownloadManager::startDownload(const QString &airportID, bool getAirport, bool getMinimums, bool getSID, bool getSTAR, bool getApproach, bool convertToAerobask, int conversionQuality)
 {
     this->m_currentAirportID = airportID;
     this->getAirport         = getAirport;
@@ -47,7 +47,7 @@ bool DownloadManager::startDownload(const QString &airportID, bool getAirport, b
     this->getSID             = getSID;
     this->getSTAR            = getSTAR;
     this->getApproach        = getApproach;
-    this->convertToAerosoft  = convertToAerosoft;
+    this->convertToAerobask  = convertToAerobask;
     this->conversionQuality  = conversionQuality;
 
     totalCharts = downloadedCharts = 0;
@@ -141,7 +141,7 @@ void DownloadManager::downloadNextChart()
 {
     if (charts.isEmpty() || downloadedCharts == totalCharts)
     {
-        if (convertToAerosoft)
+        if (convertToAerobask)
         {
             downloadedCharts = 0;
             convertNextChart();

@@ -36,7 +36,7 @@ public:
 
     DownloadManager();
 
-    Q_INVOKABLE bool startDownload(const QString &airportID, bool getAirport, bool getMinimums, bool getSID, bool getSTAR, bool getApproach, bool convertToAerosoft, int conversionQuality);
+    Q_INVOKABLE bool startDownload(const QString &airportID, bool getAirport, bool getMinimums, bool getSID, bool getSTAR, bool getApproach, bool convertToAerobask, int conversionQuality);
     Q_INVOKABLE void stopDownload();
 
     QString downloadFolder() const;
@@ -70,7 +70,7 @@ private:
     double m_downloadProgress=0;
     uint8_t conversionQuality=0;
 
-    bool getAirport, getMinimums, getSID, getSTAR, getApproach, convertToAerosoft;
+    bool getAirport, getMinimums, getSID, getSTAR, getApproach, convertToAerobask;
 
     // Current Supported Services
     QVector<ServiceProvider*> downloadServices;

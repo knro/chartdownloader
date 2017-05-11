@@ -26,7 +26,7 @@ Item {
     property alias isSIDChecked: sidCheck.checked
     property alias isStarChecked: starCheck.checked
     property alias isApproachChecked: approachCheck.checked
-    property alias isAerosoftChecked: aerosoftCheck.checked
+    property alias isAerobaskChecked: aerobaskCheck.checked
     property alias statusLabel: statusLabel.text
 
     Rectangle {
@@ -154,8 +154,8 @@ Item {
             height: 100
 
             CheckBox {
-                id: aerosoftCheck
-                text: qsTr("Make Aerosoft Charts")
+                id: aerobaskCheck
+                text: qsTr("Make Aerobask Charts")
             }
 
             Label {
@@ -283,7 +283,7 @@ Item {
         property alias isSID: sidCheck.checked
         property alias isSTAR: starCheck.checked
         property alias isIAP: approachCheck.checked
-        property alias isAerosoft: aerosoftCheck.checked
+        property alias isAerosoft: aerobaskCheck.checked
         property alias conversionQuality: qualityCombo.currentIndex
     }
 }
