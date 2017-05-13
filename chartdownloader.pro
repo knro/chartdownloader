@@ -58,6 +58,12 @@ HEADERS += src\utils.h \
 linux: CONFIG += link_pkgconfig
 linux: PKGCONFIG += poppler-qt5
 
+# For building statically
+#linux: LIBS += /usr/lib/x86_64-linux-gnu/libpoppler-qt5.a /usr/lib/x86_64-linux-gnu/libpoppler.a /usr/lib/x86_64-linux-gnu/libfreetype.a
+#linux: LIBS += -ljpeg -ltiff -llcms2 -lfontconfig
+#linux: INCLUDEPATH += /usr/include/poppler/qt5
+
+
 win32:CONFIG(release, debug|release): LIBS += -LR:/lib/ -lpoppler-qt5
 else:win32:CONFIG(debug, debug|release): LIBS += -LZ:/lib/ -lpoppler-qt5
 
@@ -68,3 +74,4 @@ macx: LIBS += -L/usr/local/lib -lpoppler-qt5
 macx: INCLUDEPATH += /usr/local/include/poppler/qt5
 ICON = chartdownloader.icns
 QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.3
+

@@ -2,7 +2,7 @@ import QtQuick 2.7
 import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.0
 import Qt.labs.platform 1.0
-import QtQuick.Dialogs 1.2
+//import QtQuick.Dialogs 1.2
 import Utils 1.0
 import DownloadManager 1.0
 
