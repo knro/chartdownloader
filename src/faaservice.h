@@ -15,12 +15,6 @@
 
 class FileDownloader;
 
-class TestService
-{
-public:
-    TestService() {}
-};
-
 class FAAService : public ServiceProvider
 {
     Q_OBJECT

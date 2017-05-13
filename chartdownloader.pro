@@ -10,6 +10,8 @@ SOURCES += src\main.cpp \
            src\airport.cpp \
            src\serviceprovider.cpp \
            src\faaservice.cpp \
+           src\ausservice.cpp \
+           src\auscontenthandler.cpp \
            src\chartinfo.cpp \
            src\iconprovider.cpp \
 
@@ -48,6 +50,8 @@ HEADERS += src\utils.h \
            src\airport.h \
            src\serviceprovider.h \
            src\faaservice.h \
+           src\ausservice.h \
+           src\auscontenthandler.h \
            src\chartinfo.h \
            src\iconprovider.h
 

@@ -15,18 +15,28 @@
 #include "downloadmanager.h"
 #include "filedownloader.h"
 #include "faaservice.h"
+#include "ausservice.h"
 #include "chartinfo.h"
 
 DownloadManager::DownloadManager()
 {
     m_downloadFolder = QDir::homePath();
 
+    // FAA
     ServiceProvider *ffaDownloader = new FAAService();
 
     connect(ffaDownloader, SIGNAL(parseError(QString)), this, SLOT(processDownloadError(QString)));
     connect(ffaDownloader, SIGNAL(parseComplete()), this, SLOT(processParseComplete()));
 
     downloadServices.append(ffaDownloader);
+
+    // AUS
+    ServiceProvider *ausDownloader = new AUSService();
+
+    connect(ausDownloader, SIGNAL(parseError(QString)), this, SLOT(processDownloadError(QString)));
+    connect(ausDownloader, SIGNAL(parseComplete()), this, SLOT(processParseComplete()));
+
+    downloadServices.append(ausDownloader);
 }
 
 QString DownloadManager::downloadFolder() const
