@@ -22,7 +22,7 @@ Page
         var chartIndex = chartType.currentIndex
         chartType.setCurrentIndex(Math.max(0, Math.min(chartIndex+1, 4)))
         chartType.setCurrentIndex(chartIndex)
-        viewHeader.update()
+        photoHeader.update()
     }
 
     Connections
@@ -185,7 +185,7 @@ Page
 
         header: Rectangle
         {
-                    id: viewHeader;
+                    id: photoHeader
                     width: parent.width
                     height: 34
                     color: "gray"
@@ -216,7 +216,7 @@ Page
 
         footer: Rectangle
         {
-                    id: viewFooter
+                    id: photoFooter
                     width: parent.width
                     height: 34
                     color: "gray"
