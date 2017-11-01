@@ -19,7 +19,7 @@ Page
     {
         currentFolder = downloadFolder + "/" + currentAirport
         // Stupid hack to force QML to update model
-        //var chartIndex = chartType.currentIndex
+        var chartIndex = chartType.currentIndex
         chartType.setCurrentIndex(0)
         chartType.setCurrentIndex(1)
         chartType.setCurrentIndex(2)
