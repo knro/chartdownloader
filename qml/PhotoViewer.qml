@@ -19,9 +19,14 @@ Page
     {
         currentFolder = downloadFolder + "/" + currentAirport
         // Stupid hack to force QML to update model
-        var chartIndex = chartType.currentIndex
-        chartType.setCurrentIndex(-1)
+        //var chartIndex = chartType.currentIndex
+        chartType.setCurrentIndex(0)
+        chartType.setCurrentIndex(1)
+        chartType.setCurrentIndex(2)
+        chartType.setCurrentIndex(3)
+        chartType.setCurrentIndex(4)
         chartType.setCurrentIndex(chartIndex)
+
         header.update()
     }
 
