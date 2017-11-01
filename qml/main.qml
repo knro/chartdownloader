@@ -31,8 +31,8 @@ ApplicationWindow {
 
             onAirportIDChanged:
             {
-                console.log("Airport ID changed: " + airportID)
-                photoViewerPage.currentAirport = airportID
+                console.log("Airport ID changed: " + airportID.text)
+                photoViewerPage.currentAirport = airportID.text
 
             }
 
@@ -52,6 +52,7 @@ ApplicationWindow {
         }
         TabButton {
             text: qsTr("View")
+            onClicked: photoViewerPage.refresh()
         }
     }
 
@@ -59,7 +60,7 @@ ApplicationWindow {
     {
         photoViewerPage.downloadFolder = utils.convertPathToURL(downloadPage.downloadFolder.text)
         photoViewerPage.currentAirport = (downloadPage.airportID.text ? downloadPage.airportID.text : "KSAN")
-       //photoViewerPage.currentFolder = photoViewerPage.downloadFolder + "/" + photoViewerPage.currentAirport
+       console.log("download folder is:" + photoViewerPage.downloadFolder);
 
     }
 

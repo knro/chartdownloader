@@ -13,11 +13,7 @@
 
 #include <QObject>
 #include <QVector>
-#ifdef WIN32
-#include <poppler/qt5/poppler-qt5.h>
-#else
 #include <poppler-qt5.h>
-#endif
 class ServiceProvider;
 class FileDownloader;
 class ChartInfo;

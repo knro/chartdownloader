@@ -80,6 +80,7 @@ DownloadForm
             popup.open()
 
             var airportFolder = utils.convertPathToURL(downloadFolder+"/"+airportID.text);
+            photoViewerPage.currentAirport = airportID.text
             photoViewerPage.currentFolder = airportFolder
         }
 
@@ -136,6 +137,8 @@ DownloadForm
         }
 
         console.log("Airport Code is " + airportID.text);
+
+        airportIDChanged(airportID.text);
 
         downloadManager.downloadFolder = downloadFolder.text
         if (state == "idle")

@@ -15,6 +15,26 @@ Page
     property alias currentAirport : airportID.text
     property int selectedChartType: 0
 
+    function refresh()
+    {
+        currentFolder = downloadFolder + "/" + currentAirport
+        // Stupid hack to force QML to update model
+        var chartIndex = chartType.currentIndex
+        chartType.setCurrentIndex(Math.max(0, Math.min(chartIndex+1, 4)))
+        chartType.setCurrentIndex(chartIndex)
+        viewHeader.update()
+    }
+
+    Connections
+    {
+        target: airportID
+        onTextEdited:
+        {
+            currentFolder = downloadFolder + "/" + currentAirport
+            //console.log("Connections Current folder is:" + currentFolder);
+        }
+    }
+
     header:
     RowLayout
     {
@@ -165,6 +185,7 @@ Page
 
         header: Rectangle
         {
+                    id: viewHeader;
                     width: parent.width
                     height: 34
                     color: "gray"
@@ -179,6 +200,7 @@ Page
                             onClicked:
                             {
                                 currentFolder = folderModel.parentFolder
+                                //console.log("<<< Current folder is:" + currentFolder);
                             }
                         }
                         anchors.fill: parent
@@ -210,6 +232,7 @@ Page
                             onClicked:
                             {
                                 currentFolder = folderModel.parentFolder
+                                //console.log("<<< Current folder is:" + currentFolder);
                             }
                         }
                         Text
