@@ -22,7 +22,7 @@ Page
         var chartIndex = chartType.currentIndex
         chartType.setCurrentIndex(Math.max(0, Math.min(chartIndex+1, 4)))
         chartType.setCurrentIndex(chartIndex)
-        photoHeader.update()
+        header.update()
     }
 
     Connections
