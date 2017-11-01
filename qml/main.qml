@@ -26,7 +26,14 @@ ApplicationWindow {
             onDownloadFolderChanged:
             {
               console.log("Download folder change!");
-              photoViewerPage.currentFolder = utils.convertPathToURL(downloadFolder.text)
+              photoViewerPage.downloadFolder = utils.convertPathToURL(downloadPage.downloadFolder.text)
+            }
+
+            onAirportIDChanged:
+            {
+                console.log("Airport ID changed: " + airportID)
+                photoViewerPage.currentAirport = airportID
+
             }
 
         }
@@ -50,7 +57,10 @@ ApplicationWindow {
 
     Component.onCompleted:
     {
-        photoViewerPage.currentFolder = utils.convertPathToURL(downloadPage.downloadFolder.text)
+        photoViewerPage.downloadFolder = utils.convertPathToURL(downloadPage.downloadFolder.text)
+        photoViewerPage.currentAirport = (downloadPage.airportID.text ? downloadPage.airportID.text : "KSAN")
+       //photoViewerPage.currentFolder = photoViewerPage.downloadFolder + "/" + photoViewerPage.currentAirport
+
     }
 
 }

@@ -36,7 +36,7 @@ Required to convert PDFs to PNGs.
 Assuming you already downloaded and installed Qt 5.8+, you can proceed to install the other dependencies:
 
 ```
-$ sudo apt-get -y install git libpoppler-qt5-dev
+$ sudo apt-get -y install git libpoppler-qt5-dev qml-module-qt-labs-platform
 ```
 
 Now, clone this repo:

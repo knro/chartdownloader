@@ -23,6 +23,7 @@ int main(int argc, char *argv[])
 
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication app(argc, argv);
+    QApplication::setWindowIcon(QIcon(":/Icons/res/chartdownloader.ico"));
     QQmlApplicationEngine engine;
 
     engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));

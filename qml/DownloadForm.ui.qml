@@ -29,37 +29,6 @@ Item {
     property alias isAerobaskChecked: aerobaskCheck.checked
     property alias statusLabel: statusLabel.text
 
-    Rectangle {
-        id: betaRectangle
-        x: 464
-        width: 300
-        height: 100
-        color: "#4e4f53"
-        radius: 1
-        anchors.right: parent.right
-        anchors.rightMargin: -124
-        anchors.top: parent.top
-        anchors.topMargin: -29
-        enabled: false
-        transformOrigin: Item.Center
-        z: -1
-        rotation: 45
-        border.color: "#00000000"
-    }
-
-    Text {
-        id: betaText
-        x: 566
-        color: "#ffffff"
-        text: qsTr("Beta")
-        anchors.right: parent.right
-        anchors.rightMargin: 0
-        anchors.top: parent.top
-        anchors.topMargin: 20
-        rotation: 45
-        font.pixelSize: 31
-    }
-
     ColumnLayout {
         id: columnLayout
         width: 100

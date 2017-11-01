@@ -11,6 +11,73 @@ Page
     visible: true
 
     property alias currentFolder : folderModel.folder
+    property string downloadFolder
+    property alias currentAirport : airportID.text
+    property int selectedChartType: 0
+
+    header:
+    RowLayout
+    {
+        id: headerLayout
+        width: parent.width
+
+        TextField {
+            id: airportID
+            width: 80
+            height: 20
+            Layout.columnSpan: 2
+            Layout.minimumWidth: 100
+            Layout.fillWidth: false
+            font.pixelSize: 12
+            placeholderText: "KSAN"
+        }
+
+        TabBar {
+        id: chartType
+        TabButton {
+            text: qsTr("Airport")
+        }
+        TabButton {
+            text: qsTr("Minimum")
+        }
+        TabButton {
+            text: qsTr("SIDs")
+        }
+        TabButton {
+            text: qsTr("STARs")
+        }
+        TabButton {
+            text: qsTr("Approaches")
+        }
+
+        onCurrentIndexChanged:
+        {
+            switch(currentIndex)
+            {
+            // Airport
+            case 0:
+                folderModel.nameFilters = ["INF.AIRPORT*.png", "INF.AERO*.png"]
+                break;
+            // Minimums
+            case 1:
+                folderModel.nameFilters = ["INF.*MIN*.png", "INF.*VECTOR*.png"]
+                break;
+            // SIDs
+            case 2:
+                folderModel.nameFilters = ["DEP.*MIN*.png"]
+                break;
+            // Stars
+            case 3:
+                folderModel.nameFilters = ["ARR.*MIN*.png"]
+                break;
+            // Approach
+            case 4:
+                folderModel.nameFilters = ["APP.*.png"]
+                break;
+            }
+        }
+    }
+    }
 
     ListView
     {
@@ -21,24 +88,26 @@ Page
         FolderListModel
         {
             id: folderModel
-            showDirs: true
-            nameFilters: ["*.png"]
+            folder: downloadFolder + "/" + currentAirport
+            nameFilters: ["INF.AIRPORT*.png"]
         }
 
         Component
         {
-            id: fileDelegate
+            id: fileDelegate            
 
             Rectangle
             {
                 id:delegate
                 width: folderListView.width
                 height: fileIsDir? 48 : folderListView.height
-                color: "black"
+                color: "black"                
 
                 Row
                 {
-                    visible: fileIsDir
+                    // This is retarded, what's a better way in QML?
+                    visible: fileIsDir && fileBaseName != "AIRPORT" && fileBaseName != "MINIMUMS" && fileBaseName != "SIDS"
+                    && fileBaseName != "STARS" && fileBaseName != "APPROACHES"
                     anchors.fill: parent
                     Image {
                         id: icon
@@ -86,7 +155,10 @@ Page
                 MouseArea {
                     id:mouseArea
                     anchors.fill: parent
-                    onClicked: fileIsDir ? currentFolder = fileURL : Qt.openUrlExternally(fileURL)
+                    onClicked:
+                    {
+                        fileIsDir ? currentFolder = fileURL : Qt.openUrlExternally(fileURL)
+                    }
                 }
         }
         }
@@ -104,7 +176,10 @@ Page
                             width:32
                             height :32
                             text: "<<<"
-                            onClicked: currentFolder = folderModel.parentFolder
+                            onClicked:
+                            {
+                                currentFolder = folderModel.parentFolder
+                            }
                         }
                         anchors.fill: parent
                         Text
@@ -132,7 +207,10 @@ Page
                             width:32
                             height :32
                             text: "<<<"
-                            onClicked: currentFolder = folderModel.parentFolder
+                            onClicked:
+                            {
+                                currentFolder = folderModel.parentFolder
+                            }
                         }
                         Text
                         {
