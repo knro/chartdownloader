@@ -113,7 +113,14 @@ Page
         FolderListModel
         {
             id: folderModel
+            folder: downloadFolder + "/" + currentAirport
             nameFilters: ["INF.AIRPORT*.png"]
+
+            onFolderChanged:
+            {
+                console.log("Folder is updated: " + folder);
+                delegate.update();
+            }
         }
 
         Component
