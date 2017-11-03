@@ -113,7 +113,6 @@ Page
         FolderListModel
         {
             id: folderModel
-            folder: downloadFolder + "/" + currentAirport
             nameFilters: ["INF.AIRPORT*.png"]
         }
 
