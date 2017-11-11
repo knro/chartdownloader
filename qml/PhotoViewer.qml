@@ -15,28 +15,27 @@ Page
     property alias currentAirport : airportID.text
     property int selectedChartType: 0
 
-    function refresh()
-    {
-        currentFolder = downloadFolder + "/" + currentAirport
-        // Stupid hack to force QML to update model
-        var chartIndex = chartType.currentIndex
-        chartType.setCurrentIndex(0)
-        chartType.setCurrentIndex(1)
-        chartType.setCurrentIndex(2)
-        chartType.setCurrentIndex(3)
-        chartType.setCurrentIndex(4)
-        chartType.setCurrentIndex(chartIndex)
-
-        header.update()
-    }
-
     Connections
     {
         target: airportID
-        onTextEdited:
+        //onTextEdited:
+        onTextChanged:
         {
+            // Force a refresh
+            currentFolder = downloadFolder
             currentFolder = downloadFolder + "/" + currentAirport
-            //console.log("Connections Current folder is:" + currentFolder);
+
+            var chartIndex = chartType.currentIndex
+            chartType.setCurrentIndex(0)
+            chartType.setCurrentIndex(1)
+            chartType.setCurrentIndex(2)
+            chartType.setCurrentIndex(3)
+            chartType.setCurrentIndex(4)
+            chartType.setCurrentIndex(chartIndex)
+
+            header.update()
+
+            console.log("Connections Current folder is:" + currentFolder);
         }
     }
 
@@ -104,24 +103,23 @@ Page
     }
     }
 
+    FolderListModel
+    {
+        id: folderModel
+        folder: downloadFolder + "/" + currentAirport
+        nameFilters: ["INF.AIRPORT*.png"]
+
+        onFolderChanged:
+        {
+            console.log("FolderListModel folder is updated: " + folder);
+        }
+    }
+
     ListView
     {
         id: folderListView
         anchors.fill: parent
         focus: true
-
-        FolderListModel
-        {
-            id: folderModel
-            folder: downloadFolder + "/" + currentAirport
-            nameFilters: ["INF.AIRPORT*.png"]
-
-            onFolderChanged:
-            {
-                console.log("Folder is updated: " + folder);
-                delegate.update();
-            }
-        }
 
         Component
         {
@@ -256,8 +254,5 @@ Page
 
         model: folderModel
         delegate: fileDelegate
-
-
-
     }
 }

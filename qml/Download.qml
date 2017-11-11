@@ -10,7 +10,8 @@ DownloadForm
 {
     id: downloadFormPage
 
-    property bool isRunning: false    
+    property bool isRunning: false
+    signal downloadFinished()
 
     Utils
     {
@@ -64,7 +65,8 @@ DownloadForm
 
     DownloadManager
     {
-        id: downloadManager
+        id: downloadManager        
+
         onDownloadProgressChanged:
         {
             downloadProgressBar.indeterminate = false
@@ -79,9 +81,11 @@ DownloadForm
             popupLabel.text = downloadProgressStatus
             popup.open()
 
-            var airportFolder = utils.convertPathToURL(downloadFolder+"/"+airportID.text);
-            photoViewerPage.currentAirport = airportID.text
-            photoViewerPage.currentFolder = airportFolder
+            downloadFinished();
+
+            //var airportFolder = utils.convertPathToURL(downloadFolder+"/"+airportID.text);
+            //photoViewerPage.currentAirport = airportID.text
+            //photoViewerPage.currentFolder = airportFolder
         }
 
         onDownloadError:

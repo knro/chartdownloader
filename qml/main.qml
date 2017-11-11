@@ -29,13 +29,11 @@ ApplicationWindow {
               photoViewerPage.downloadFolder = utils.convertPathToURL(downloadPage.downloadFolder.text)
             }
 
-            onAirportIDChanged:
+            onDownloadFinished:
             {
-                console.log("Airport ID changed: " + airportID.text)
+                console.log("Download complete for Airport: " + airportID.text)
                 photoViewerPage.currentAirport = airportID.text
-
             }
-
         }
 
         PhotoViewer
@@ -52,7 +50,6 @@ ApplicationWindow {
         }
         TabButton {
             text: qsTr("View")
-            onClicked: photoViewerPage.refresh()
         }
     }
 
@@ -60,7 +57,7 @@ ApplicationWindow {
     {
         photoViewerPage.downloadFolder = utils.convertPathToURL(downloadPage.downloadFolder.text)
         photoViewerPage.currentAirport = (downloadPage.airportID.text ? downloadPage.airportID.text : "KSAN")
-       console.log("download folder is:" + photoViewerPage.downloadFolder);
+       //console.log("download folder is:" + photoViewerPage.downloadFolder);
 
     }
 
