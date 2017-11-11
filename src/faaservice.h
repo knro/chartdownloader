@@ -28,15 +28,17 @@ public:
 
     virtual bool startDownload(const QString &airportID, bool getAirport, bool getMinimums, bool getSID, bool getSTAR, bool getApproach);
     // Cancel download and clear any data
-    virtual void stopDownload();
+    virtual void stopDownload();       
 
 protected slots:
     void processDownloadSucess();
     void processDownloadError(const QString &errorString);
 
 private:
+    void downloadPage();
 
     DownloadState state = IDLE;
+    uint8_t currentPage=1;
 };
 
 #endif // FAASERVICE_H

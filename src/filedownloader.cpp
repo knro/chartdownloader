@@ -75,6 +75,9 @@ void FileDownloader::dataReady()
 
 void FileDownloader::dataFinished(QNetworkReply * pReply)
 {
+    if (pReply->error() != QNetworkReply::NoError)
+        return;
+
     dataReady();
     if (m_DownloadedFile.isOpen())
     {

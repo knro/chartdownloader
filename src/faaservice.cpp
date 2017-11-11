@@ -48,17 +48,30 @@ bool FAAService::startDownload(const QString &airportID, bool getAirport, bool g
     this->getStar    = getSTAR;
     this->getApproach= getApproach;
 
+    charts.clear();
+    currentPage=1;
+
+    downloadPage();
+
+    return true;
+}
+
+void FAAService::downloadPage()
+{
     // Get current cycle from 1-week in the future
-    QString cycle       = QDate::currentDate().addDays(7).toString("yyMM");
-    QUrl    url         = QUrl(QString("https://www.faa.gov/air_traffic/flight_info/aeronav/digital_products/dtpp/search/results/?cycle=%1&ident=%2").arg(cycle,airportID));
+    QString cycle = QDate::currentDate().addDays(7).toString("yyMM");
+    QUrl url = QUrl(QString("https://www.faa.gov/air_traffic/flight_info/aeronav/digital_products/dtpp/search/results/?cycle=%1&ident=%2&page=%3").arg(cycle,m_airportID,QString::number(currentPage)));
 
     if (downloadJob)
-        delete (downloadJob);
+    {
+        downloadJob->disconnect(this);
+        downloadJob->deleteLater();
+    }
 
     downloadJob = new FileDownloader();
 
-    QObject::connect(downloadJob, SIGNAL(downloaded()), this, SLOT(processDownloadSucess()));
-    QObject::connect(downloadJob, SIGNAL(error(QString)), this, SLOT(processDownloadError(QString)));
+    connect(downloadJob, SIGNAL(downloaded()), this, SLOT(processDownloadSucess()));
+    connect(downloadJob, SIGNAL(error(QString)), this, SLOT(processDownloadError(QString)));
 
     //QString output  = KSPaths::writableLocation(QStandardPaths::GenericDataLocation) + "catalog.min.json";
     //downloadJob->setDownloadedFileURL(QUrl::fromLocalFile(output));
@@ -66,9 +79,6 @@ bool FAAService::startDownload(const QString &airportID, bool getAirport, bool g
     state = PARSE_HTML;
 
     downloadJob->get(url);
-
-    return true;
-
 }
 
 void FAAService::processDownloadSucess()
@@ -78,6 +88,10 @@ void FAAService::processDownloadSucess()
         QXmlSimpleReader xmlReader;
         QXmlInputSource *source = new QXmlInputSource();
         QString data = downloadJob->downloadedData().simplified();
+
+        bool getNextPage=false;
+        if (data.contains("Next &gt;</a>"))
+            getNextPage = true;
 
         int openingBody = data.indexOf("<tbody>");
         int closingBody = data.indexOf("</tbody>");
@@ -105,12 +119,18 @@ void FAAService::processDownloadSucess()
             return;
         }
 
-        charts = handler->charts;
+        charts.append(handler->charts);
 
         delete (handler);
         delete (source);
 
-        emit parseComplete();
+        if (getNextPage)
+        {
+            currentPage++;
+            downloadPage();
+        }
+        else
+            emit parseComplete();
 
     }
 }
