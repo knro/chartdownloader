@@ -36,18 +36,18 @@ SET (chart_SRCS
     )
 
 if (APPLE)
-set(MACOSX_BUNDLE_ICON_FILE chartdownloader.icns)
-set(myApp_ICON ${CMAKE_CURRENT_SOURCE_DIR}/res/chartdownloader.icns)
-set_source_files_properties(${myApp_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
-add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${myApp_ICON} ${chart_SRCS} qml.qrc)
+    add_definitions(-DQ_OS_DARWIN)
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.10")
+    set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE TRUE)
+    set(MACOSX_BUNDLE_ICON_FILE chartdownloader.icns)
+    set(myApp_ICON ${CMAKE_CURRENT_SOURCE_DIR}/res/chartdownloader.icns)
+    set_source_files_properties(${myApp_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+    add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${myApp_ICON} ${chart_SRCS} qml.qrc)
 elseif (WIN32)
-add_executable(${PROJECT_NAME} WIN32 ${chart_SRCS} qml.qrc)
+    add_executable(${PROJECT_NAME} WIN32 ${chart_SRCS} qml.qrc)
 else()
-add_executable(${PROJECT_NAME} ${chart_SRCS} qml.qrc)
+    add_executable(${PROJECT_NAME} ${chart_SRCS} qml.qrc)
 endif (APPLE)
-
-
-
 
 target_link_libraries(${PROJECT_NAME}
     Qt5::Core
@@ -59,5 +59,20 @@ target_link_libraries(${PROJECT_NAME}
     )
 
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
+
+if (APPLE)
+find_path(MACDEPLOYQT_PATH macdeployqt PATH_SUFFIXES bin)
+    if(NOT MACDEPLOYQT_PATH)
+        message(FATAL_ERROR "Could not find macdeployqt for OSX bundling. You can point MACDEPLOYQT_PATH to it's path.")
+    endif()
+
+    # If macdeployqt is found just build and install.
+    # OSX budle is ready.
+    install(CODE "
+            execute_process(COMMAND ${MACDEPLOYQT_PATH}/macdeployqt \"${BUNDLE_PATH}\" \"-qmldir=${CMAKE_SOURCE_DIR}/qml\" -verbose=2)
+            message(STATUS \"Creating dmg of the app\")
+            execute_process(COMMAND hdiutil create -fs HFS+ -volname ${PROJECT_NAME} -srcfolder \"${BUNDLE_PATH}\" -ov -format UDZO \"${PROJECT_NAME}.dmg\")
+            " COMPONENT Runtime)
+endif()
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
