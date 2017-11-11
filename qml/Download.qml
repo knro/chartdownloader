@@ -109,7 +109,7 @@ DownloadForm
 
         onAccepted:
         {
-            console.log("Select folder is " + folder);
+            //console.log("Select folder is " + folder);
             downloadFolder.text = utils.convertUrlToNativeFilePath(folder)
             downloadFolderChanged(downloadFolder.text)
         }
@@ -140,7 +140,7 @@ DownloadForm
             return
         }
 
-        console.log("Airport Code is " + airportID.text);
+        //console.log("Airport Code is " + airportID.text);
 
         airportIDChanged(airportID.text);
 

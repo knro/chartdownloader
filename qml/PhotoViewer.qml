@@ -35,7 +35,7 @@ Page
 
             header.update()
 
-            console.log("Connections Current folder is:" + currentFolder);
+            //console.log("Connections Current folder is:" + currentFolder);
         }
     }
 
@@ -111,10 +111,10 @@ Page
         folder: downloadFolder + "/" + currentAirport
         nameFilters: ["INF.AIRPORT*.png"]
 
-        onFolderChanged:
-        {
-            console.log("FolderListModel folder is updated: " + folder);
-        }
+        //onFolderChanged:
+        //{
+        //    console.log("FolderListModel folder is updated: " + folder);
+        //}
     }
 
     ListView
