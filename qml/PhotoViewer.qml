@@ -90,11 +90,11 @@ Page
                 break;
             // SIDs
             case 2:
-                folderModel.nameFilters = ["DEP.*MIN*.png"]
+                folderModel.nameFilters = ["DEP.*.png"]
                 break;
             // Stars
             case 3:
-                folderModel.nameFilters = ["ARR.*MIN*.png"]
+                folderModel.nameFilters = ["ARR.*.png"]
                 break;
             // Approach
             case 4:
