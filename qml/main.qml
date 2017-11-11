@@ -25,13 +25,13 @@ ApplicationWindow {
 
             onDownloadFolderChanged:
             {
-              //console.log("Download folder change!");
+              console.log("Download folder change!");
               photoViewerPage.downloadFolder = utils.convertPathToURL(downloadPage.downloadFolder.text)
             }
 
             onDownloadFinished:
             {
-                //console.log("Download complete for Airport: " + airportID.text)
+                console.log("Download complete for Airport: " + airportID.text)
                 photoViewerPage.currentAirport = airportID.text
             }
         }

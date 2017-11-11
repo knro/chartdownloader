@@ -39,9 +39,15 @@ if (APPLE)
 set(MACOSX_BUNDLE_ICON_FILE chartdownloader.icns)
 set(myApp_ICON ${CMAKE_CURRENT_SOURCE_DIR}/res/chartdownloader.icns)
 set_source_files_properties(${myApp_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${myApp_ICON} ${chart_SRCS} qml.qrc)
+elseif (WIN32)
+add_executable(${PROJECT_NAME} [WIN32] ${chart_SRCS} qml.qrc)
+else()
+add_executable(${PROJECT_NAME} ${chart_SRCS} qml.qrc)
 endif (APPLE)
 
-add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${myApp_ICON} ${chart_SRCS} qml.qrc)
+
+
 
 target_link_libraries(${PROJECT_NAME}
     Qt5::Core
