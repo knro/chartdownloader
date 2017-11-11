@@ -36,13 +36,13 @@ SET (chart_SRCS
     )
 
 if (APPLE)
-    add_definitions(-DQ_OS_DARWIN)
+    #add_definitions(-DQ_OS_DARWIN)
     set(CMAKE_OSX_DEPLOYMENT_TARGET "10.10")
-    set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE TRUE)
     set(MACOSX_BUNDLE_ICON_FILE chartdownloader.icns)
-    set(myApp_ICON ${CMAKE_CURRENT_SOURCE_DIR}/res/chartdownloader.icns)
-    set_source_files_properties(${myApp_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+    SET_SOURCE_FILES_PROPERTIES(${CMAKE_CURRENT_SOURCE_DIR}/chartdownloader.icns PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
     add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${myApp_ICON} ${chart_SRCS} qml.qrc)
+    set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE TRUE)
+
 elseif (WIN32)
     add_executable(${PROJECT_NAME} WIN32 ${chart_SRCS} qml.qrc)
 else()
@@ -58,7 +58,9 @@ target_link_libraries(${PROJECT_NAME}
     ${POPPLER_QT_LIBRARIES}
     )
 
-install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
+install(TARGETS ${PROJECT_NAME}
+    BUNDLE DESTINATION /Applications COMPONENT Runtime
+    RUNTIME DESTINATION bin COMPONENT Runtime)
 
 if (APPLE)
 find_path(MACDEPLOYQT_PATH macdeployqt PATH_SUFFIXES bin)
