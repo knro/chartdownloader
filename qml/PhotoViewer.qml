@@ -56,8 +56,10 @@ Page
             placeholderText: "KSAN"
         }
 
-        TabBar {
+        TabBar
+        {
         id: chartType
+        currentIndex: 0
         TabButton {
             text: qsTr("Airport")
         }
