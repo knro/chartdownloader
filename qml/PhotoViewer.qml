@@ -25,13 +25,15 @@ Page
             currentFolder = downloadFolder
             currentFolder = downloadFolder + "/" + currentAirport
 
+            chartType.update()
+            /*
             var chartIndex = chartType.currentIndex
             chartType.setCurrentIndex(0)
             chartType.setCurrentIndex(1)
             chartType.setCurrentIndex(2)
             chartType.setCurrentIndex(3)
             chartType.setCurrentIndex(4)
-            chartType.setCurrentIndex(chartIndex)
+            chartType.setCurrentIndex(chartIndex)*/
 
             header.update()
 
