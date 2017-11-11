@@ -24,7 +24,7 @@ public:
     explicit FAAService(QObject *parent = 0);
     ~FAAService();
 
-    virtual bool canDownload(const QString &airportID) { return airportID.startsWith("K", Qt::CaseInsensitive); }
+    virtual bool canDownload(const QString &airportID);
 
     virtual bool startDownload(const QString &airportID, bool getAirport, bool getMinimums, bool getSID, bool getSTAR, bool getApproach);
     // Cancel download and clear any data

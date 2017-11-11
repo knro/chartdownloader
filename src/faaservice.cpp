@@ -26,6 +26,18 @@ FAAService::~FAAService()
     delete (downloadJob);
 }
 
+bool FAAService::canDownload(const QString &airportID)
+{
+    return (airportID.startsWith("K", Qt::CaseInsensitive) ||
+            // Alaska
+            airportID.startsWith("PA", Qt::CaseInsensitive) ||
+            airportID.startsWith("PF", Qt::CaseInsensitive) ||
+            airportID.startsWith("PO", Qt::CaseInsensitive) ||
+            airportID.startsWith("PP", Qt::CaseInsensitive) ||
+            // Hawaii
+            airportID.startsWith("PH", Qt::CaseInsensitive));
+}
+
 bool FAAService::startDownload(const QString &airportID, bool getAirport, bool getMinimums, bool getSID, bool getSTAR, bool getApproach)
 {
     m_airportID  = airportID;
