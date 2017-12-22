@@ -59,7 +59,11 @@ bool FAAService::startDownload(const QString &airportID, bool getAirport, bool g
 void FAAService::downloadPage()
 {
     // Get current cycle from 1-week in the future
-    QString cycle = QDate::currentDate().addDays(7).toString("yyMM");
+    QDate currentDate = QDate::currentDate().addDays(7);
+    QString cycle = currentDate.toString("yyMM");
+    // Special case
+    if (currentDate.month() == 12 && currentDate.day() >= 7)
+        cycle = currentDate.toString("yy13");
     QUrl url = QUrl(QString("https://www.faa.gov/air_traffic/flight_info/aeronav/digital_products/dtpp/search/results/?cycle=%1&ident=%2&page=%3").arg(cycle,m_airportID,QString::number(currentPage)));
 
     if (downloadJob)
