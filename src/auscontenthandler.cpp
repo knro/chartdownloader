@@ -15,11 +15,11 @@
 AusContentHandler::AusContentHandler(const QString &airportID, bool getAirport, bool getMinimums, bool getSID, bool getSTAR, bool getApproach)
 {
     this->airportID = airportID;
-    this->getAirport=getAirport;
-    this->getMinimums=getMinimums;
-    this->getSID=getSID;
-    this->getSTAR=getSTAR;
-    this->getApproach=getApproach;
+    this->getAirport = getAirport;
+    this->getMinimums = getMinimums;
+    this->getSID = getSID;
+    this->getSTAR = getSTAR;
+    this->getApproach = getApproach;
 }
 
 bool AusContentHandler::startElement(const QString &namespaceURI, const QString &localName, const QString &qName, const QXmlAttributes &atts)
@@ -64,7 +64,7 @@ bool AusContentHandler::characters(const QString &ch)
     ChartInfo *oneChart = new ChartInfo(airportID);
     oneChart->type = currentTag;
     oneChart->name = pcdata.remove('/');
-    oneChart->url  = "https://www.airservicesaustralia.com/aip/pending/dap/" + currentURL;
+    oneChart->url  = "https://www.airservicesaustralia.com/aip/current/dap/" + currentURL;
 
     charts.append(oneChart);
 
@@ -82,11 +82,11 @@ bool AusContentHandler::error(const QXmlParseException &exception)
     return true;
 }
 
-bool AusContentHandler::fatalError (const QXmlParseException & exception)
+bool AusContentHandler::fatalError (const QXmlParseException &exception)
 {
-      qWarning() << "Fatal error on line" << exception.lineNumber()
-                 << ", column" << exception.columnNumber() << ':'
-                 << exception.message();
+    qWarning() << "Fatal error on line" << exception.lineNumber()
+               << ", column" << exception.columnNumber() << ':'
+               << exception.message();
 
-      return false;
+    return false;
 }

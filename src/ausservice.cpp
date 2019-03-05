@@ -11,6 +11,7 @@
 #include <QDate>
 #include <QUrl>
 #include <QXmlSimpleReader>
+#include <QRegularExpression>
 
 #include "ausservice.h"
 #include "filedownloader.h"
@@ -34,7 +35,7 @@ bool AUSService::startDownload(const QString &airportID, bool getAirport, bool g
     this->getMin     = getMinimums;
     this->getSID     = getSID;
     this->getStar    = getSTAR;
-    this->getApproach= getApproach;
+    this->getApproach = getApproach;
 
     // No need to redownload the page again
     if (ausData.isEmpty() == false)
@@ -44,7 +45,7 @@ bool AUSService::startDownload(const QString &airportID, bool getAirport, bool g
         return true;
     }
 
-    QUrl    url         = QUrl(QString("https://www.airservicesaustralia.com/aip/pending/dap/AeroProcChartsTOC.htm"));
+    QUrl    url         = QUrl(QString("https://www.airservicesaustralia.com/aip/current/dap/AeroProcChartsTOC.htm"));
 
     if (downloadJob)
         delete (downloadJob);
@@ -78,10 +79,17 @@ void AUSService::processDownloadSucess()
 
             data = data.mid(openingBody, closingBody + 8);
 
-            // Fix stupid broken HTML. Who the hell developed this?
+            QRegularExpression re("<\\s*([^a][a-z][a-z0-9]*)\\s.*?>");
+
+            // Fix stupid HTML. Who the hell wrote this junk?
             data = data.remove("<td width=\"5%\">");
             data = data.replace("href=", "href=\"");
-            data = data.replace(".pdf", ".pdf\"");
+            data = data.replace(".PDF", ".PDF\"");
+
+            data = data.replace(re, "<\\1>");
+            // Fix stupid broken HTML. Who the hell developed this?
+            //data = data.remove("<td width=\"5%\">");
+            qDebug() << data;
 
             ausData = data;
         }
@@ -91,6 +99,7 @@ void AUSService::processDownloadSucess()
         //HTMLParser *parser = new HTMLParser();
         //parser->parse(data);
 
+        //qDebug() << ausData;
         source->setData(ausData);
 
         AusContentHandler *handler = new AusContentHandler(m_airportID, getAirport, getMin, getSID, getStar, getApproach);
